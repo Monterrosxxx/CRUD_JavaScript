@@ -1,10 +1,11 @@
 import express from 'express';
-import productsRoutes from "./src/routes/products.js"
+import productsRoutes from "./src/routes/products.js";
 import clientsRoutes from './src/routes/clients.js';
 import employeesRoutes from './src/routes/employee.js';
 import brancheesRouter from './src/routes/branch.js';
 import reviewsRouter from './src/routes/reviews.js';
-import registerEmployeesRouter from "./src/routes/registerEmployee.js"
+import registerEmployeesRouter from "./src/routes/registerEmployee.js";
+import loginRouter from "./src/routes/login.js";
 
 import cookieParser from "cookie-parser";
 
@@ -23,5 +24,7 @@ app.use("/api/branches", brancheesRouter)
 app.use("/api/reviews", reviewsRouter)
 
 app.use("/api/registerEmployee", registerEmployeesRouter)
+
+app.use("/api/login", loginRouter)
 
 export default app;
