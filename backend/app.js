@@ -8,6 +8,7 @@ import registerEmployeesRouter from "./src/routes/registerEmployee.js";
 import loginRouter from "./src/routes/login.js";
 import logoutRouter from "./src/routes/logout.js";
 import registerClientsRouter from "./src/routes/registerClients.js";
+import recoveryPasswordRouter from "./src/routes/recoveryPassword.js";
 
 import cookieParser from "cookie-parser";
 
@@ -32,5 +33,7 @@ app.use("/api/login", loginRouter)
 app.use("/api/logout", logoutRouter)
 
 app.use("/api/registerClients", registerClientsRouter)
+
+app.use("/api/recoveryPassword", recoveryPasswordRouter)
 
 export default app;
