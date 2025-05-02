@@ -103,6 +103,64 @@ recoveryPasswordController.verifiedCode = async (req,res) => {
     } catch (error) {
         console.log("error" + error);
     }
-}
+};
+
+
+recoveryPasswordController.newPassword = async (req, res) => {
+    const {newPassword} = req.body;
+
+    try {
+         //1- Extraer el token de las cookies
+
+         const token = req.cookies.tokenRecoveryCode
+
+         //2- Extraer la información del tokeb
+
+         const decoded = jsonwebtoken.verify(token, config.JWT.secret)
+
+         //3- Comprobar si el codigo no fue verificado
+
+         if(!decoded.verified){
+            return res.json({message: "Code not verified"})
+         }
+
+
+         //Extraer el email y el userType
+
+         const { email, userType } = decoded;
+
+         //Encriptar la contraseña
+
+         const hashedPassword = await bycryptjs.hash(newPassword, 10)
+
+
+         let updatedUser 
+
+         //Atualizar la contraseña
+
+         if(userType === "client"){
+            updatedUser = await clientsModel.findOneAndUpdate(
+                {email},
+                {password: hashedPassword},
+                {new: true}
+            )
+        }else if(userType === "employee"){
+            updatedUser = await employeesModel.findOneAndUpdate(
+                {email},
+                {password: hashedPassword},
+                {new: true}
+            )
+        }
+
+        //Eliminar el token
+        res.clearCookie("tokenRecoveryCode")
+
+        res.json({message: "Password updated succesfuly"})
+
+
+    } catch (error) {
+        console.log("este es el error xd:" + error)
+    }
+};
 
 export default recoveryPasswordController;
