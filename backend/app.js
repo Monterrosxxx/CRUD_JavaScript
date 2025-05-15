@@ -10,6 +10,7 @@ import logoutRouter from "./src/routes/logout.js";
 import registerClientsRouter from "./src/routes/registerClients.js";
 import recoveryPasswordRouter from "./src/routes/recoveryPassword.js";
 import providers from "./src/routes/providers.js";
+import brand from "./src/routes/brand.js";
 
 import cookieParser from "cookie-parser";
 
@@ -38,5 +39,7 @@ app.use("/api/registerClients", registerClientsRouter)
 app.use("/api/recoveryPassword", recoveryPasswordRouter)
 
 app.use("/api/providers", providers)
+
+app.use("/api/brand", brand)
 
 export default app;
